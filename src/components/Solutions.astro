@@ -78,8 +78,16 @@ const SOLS = [
   .solution-cta {
     color: inherit; font-size: 13px; font-weight: 500;
     border-bottom: 1px solid currentColor; padding-bottom: 2px;
+    position: relative; z-index: 2;
   }
   .solution-card--dark .solution-cta { color: #fff; }
+  .solution-cta::before {
+    content: ''; position: absolute; inset: -48px -40px 0;
+    z-index: 1; border: 0;
+  }
+  .solution-card-content,
+  .solution-monogram { position: relative; z-index: 2; pointer-events: none; }
+  .solution-cta { pointer-events: auto; }
   .solution-monogram {
     position: absolute; right: 32px; bottom: 32px;
     width: 64px; height: 48px;
