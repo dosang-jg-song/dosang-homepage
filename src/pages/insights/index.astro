@@ -103,7 +103,13 @@ const CAT_COLOR = {
   .insights-card-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px 32px;
   }
-  .insight-card { display: flex; flex-direction: column; }
+  .insight-card {
+    display: flex; flex-direction: column;
+    position: relative;
+    transition: transform 300ms var(--ease);
+  }
+  .insight-card:hover { transform: translateY(-2px); }
+  .insight-card:hover .insight-title { color: var(--color-accent); }
   .insight-card[hidden] { display: none; }
   .insight-thumb {
     background: #0f2440; aspect-ratio: 16 / 9; margin-bottom: 24px;
@@ -135,7 +141,13 @@ const CAT_COLOR = {
   }
   .insight-link {
     color: var(--color-accent); font-size: 13px; font-weight: 500; margin-top: auto;
+    position: static;
   }
+  .insight-link::before {
+    content: ''; position: absolute; inset: 0; z-index: 1;
+  }
+  .insight-card > *:not(.insight-link) { position: relative; z-index: 2; pointer-events: none; }
+  .insight-title { transition: color 300ms var(--ease); }
 
   @media (max-width: 1023px) {
     .insights-card-grid { grid-template-columns: 1fr 1fr; }

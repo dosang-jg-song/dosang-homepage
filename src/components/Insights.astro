@@ -45,7 +45,13 @@ const CAT_COLOR = {
 
 <style>
   .insights-grid { grid-template-columns: repeat(3, 1fr); gap: 32px; }
-  .insight-card { grid-column: span 1; display: flex; flex-direction: column; }
+  .insight-card {
+    grid-column: span 1; display: flex; flex-direction: column;
+    position: relative;
+    transition: transform 300ms var(--ease);
+  }
+  .insight-card:hover { transform: translateY(-2px); }
+  .insight-card:hover .insight-title { color: var(--color-accent); }
   .insight-thumb {
     background: #0f2440; aspect-ratio: 16 / 9; margin-bottom: 24px;
     display: flex; align-items: center; justify-content: center;
@@ -72,7 +78,15 @@ const CAT_COLOR = {
   .insight-summary {
     font-size: 14px; line-height: 1.7; color: var(--color-text-secondary); margin-bottom: 20px;
   }
-  .insight-link { color: var(--color-accent); font-size: 13px; font-weight: 500; margin-top: auto; }
+  .insight-link {
+    color: var(--color-accent); font-size: 13px; font-weight: 500; margin-top: auto;
+    position: static;
+  }
+  .insight-link::before {
+    content: ''; position: absolute; inset: 0; z-index: 1;
+  }
+  .insight-card > *:not(.insight-link) { position: relative; z-index: 2; pointer-events: none; }
+  .insight-title { transition: color 300ms var(--ease); }
   .insights-all { text-align: center; margin-top: 64px; }
   @media (max-width: 1023px) {
     .insights-grid { grid-template-columns: 1fr; gap: 48px; }
