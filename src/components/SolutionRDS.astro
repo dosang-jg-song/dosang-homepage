@@ -1,12 +1,25 @@
 ---
+const CAPS = [
+  ["C.01", "AX-Powered Customization", "도상 자체 AI 개발방법론(AX)이 고객의 비즈니스/산업에 맞는 SAP 모듈 구성·설정·커스텀 코드를 자동 생성합니다. 산업별 시나리오 라이브러리(제조·금융·유통 등)를 기반으로 출발하며, 고객 환경에 맞춰 조정합니다."],
+  ["C.02", "Consultant Orchestration", "자동화는 도상 컨설턴트가 오케스트레이션합니다. 자동 생성 결과를 고객 니즈에 맞춰 검수·보강하며, 비즈니스 의미가 모호한 영역은 반드시 컨설턴트가 직접 설계합니다. AX는 도구이며, 의사결정은 사람입니다."],
+  ["C.03", "Synthetic Test Data Generation", "단위 테스트·통합 테스트에 사용 가능한 합성 데이터(synthetic data) 셋을 자동 생성합니다. 실 고객 데이터·개인정보를 포함하지 않으며, 산업별 분포·트랜잭션 패턴을 모사합니다."],
+  ["C.04", "Migration Automation", "생성된 데이터를 SAP 환경에 자동 마이그레이션합니다. LSMW·LTMC·BAPI 등 SAP 표준 도구를 활용하며, 마이그레이션 결과는 도상 컨설턴트의 검증을 거쳐 사용 환경에 적용됩니다."],
+];
+const SCENARIOS = [
+  ["SCN.01", "SAP 첫 도입 — 의사결정자·실무자 시연", "도입 전 시연 단계에서 고객의 실 산업 시나리오를 반영한 SAP 환경을 4~6주 내 구축. 임원 의사결정 + 실무자 사전 학습 동시 지원.", [["Target", "Greenfield 도입 검토"], ["Setup", "4 ~ 6 weeks"]]],
+  ["SCN.02", "SAP 인력 양성 — 안전한 학습 환경", "합성 데이터 기반의 실습 환경을 부서·역할별로 분리 제공. 운영 시스템에 영향 없이 트랜잭션·보고서·통제 학습 가능. 도상 컨설턴트가 학습 시나리오 설계·검수.", [["Target", "Internal SAP team"], ["Data", "Synthetic only"]]],
+  ["SCN.03", "신사업 PoC — 빠른 컨셉 증명", "새 비즈니스 모델·새 산업 진출 검토 시, 별도 SAP 인스턴스에 AX 자동화로 1차 커스터마이징 → 컨설턴트 보강 → 합성 데이터 적용. 통상 4~8주 내 검증 가능 환경 확보.", [["Target", "Greenfield PoC"], ["Cycle", "4 ~ 8 weeks"]]],
+];
 const STEPS = [
-  ["P.01", "Discovery", "현 SAP 환경·테스트 자산 인벤토리 분석."],
-  ["P.02", "Design", "데이터 마스킹 정책 + 시나리오 설계."],
-  ["P.03", "Build", "RDS 환경 구축, 스냅샷·refresh 자동화."],
-  ["P.04", "Validate", "재현성 검증, SoD 통제 점검."],
-  ["P.05", "Hyper-care", "30일 운영 안정화."],
+  ["P.01", "Discovery", "고객 산업·요건 진단 + Scenario Library 매칭 (1주)"],
+  ["P.02", "Generation", "AX 자동 커스터마이징 + 합성 데이터 셋 생성 (1~2주)"],
+  ["P.03", "Orchestration", "도상 컨설턴트 검수·보강·고객 니즈 맞춤 작업 (1~2주)"],
+  ["P.04", "Migration", "SAP 인스턴스에 자동 마이그레이션 + 검증 (1주)"],
+  ["P.05", "Hand-over", "사용자 교육 + 운영 가이드 + 30일 Hyper-care"],
 ];
 ---
+
+<!-- Hero (dark) -->
 <section class="das-hero">
   <div class="container">
     <div class="breadcrumb"><a href="/">Home</a> · <a href="/#solutions">Solutions</a> · RDS</div>
@@ -17,8 +30,9 @@ const STEPS = [
       </div>
       <h1 class="h-display das-hero-title">SAP Real Data Simulator.</h1>
       <p class="lead das-hero-lead">
-        실데이터 기반 SAP 시뮬레이션·테스트 환경 솔루션. 운영계 영향 없이 마스킹된 실데이터로
-        회귀 테스트·교육·트러블슈팅 환경을 즉시 제공합니다.
+        비즈니스·산업 맞춤 SAP 인스턴스를 AX 자동화로 신속히 구축하고,
+        단위·통합 테스트용 합성 데이터를 자동 생성·마이그레이션합니다.
+        SAP 첫 도입·인력 양성·신사업 컨셉 증명을 위한 별도 인스턴스 환경입니다.
       </p>
     </div>
     <div class="das-meta">
@@ -29,24 +43,163 @@ const STEPS = [
     </div>
   </div>
 </section>
+
+<!-- 01 Problem -->
 <section class="section">
   <div class="container">
     <div class="section-title-row">
-      <div><div class="eyebrow">01 / Use Case</div></div>
+      <div><div class="eyebrow">01 / Problem</div></div>
       <div>
-        <h2 class="h-2 das-title">왜 RDS인가.</h2>
-        <p class="lead measure">실데이터 기반 테스트 환경은 안정적 운영의 전제 조건입니다. RDS는 운영계 부하 없이 마스킹된 실데이터를 제공합니다.</p>
+        <h2 class="h-2 das-title">SAP 첫 도입과 신사업 검증의 빈자리.</h2>
+        <div class="lead measure das-lead">
+          SAP는 글로벌 표준 ERP이지만, 처음 도입하는 기업·기관, 인력을 양성해야 하는 조직,
+          신사업·새 인스턴스에서 빠른 컨셉 증명(PoC)이 필요한 팀에게는 초기 진입 장벽이 분명히 존재합니다.
+        </div>
+        <ul class="das-bullets">
+          <li><strong>도입 전 학습·시연 환경 부재</strong> — 의사결정자·실무자 모두 추상적 설명에 의존</li>
+          <li><strong>인력 양성 환경 위험</strong> — 실 데이터·실 트랜잭션이 필요하나, 운영 시스템 사용은 위험</li>
+          <li><strong>PoC 사이클 부정합</strong> — 표준 구축 사이클(수개월)과 신사업 검증 속도 불일치</li>
+        </ul>
+        <p class="measure das-body">
+          기존 데모 시스템·교육용 환경은 표준 시나리오에 한정되어 있어, 고객의 실제 산업·비즈니스 모델을
+          반영하지 못합니다. RDS는 AX 자동화로 이 격차를 줄입니다.
+        </p>
       </div>
     </div>
   </div>
 </section>
+
+<!-- 02 Capabilities -->
+<section class="section section--subtle">
+  <div class="container">
+    <div class="section-title-row">
+      <div><div class="eyebrow">02 / Capabilities</div></div>
+      <div>
+        <h2 class="h-2 das-title">핵심 기능 4개.</h2>
+        <p class="lead measure">AX 자동화와 도상 컨설턴트의 검수·보강이 결합된 2층 구조. 자동 생성은 출발점이며, 비즈니스 의사결정은 인간 컨설턴트의 책임입니다.</p>
+      </div>
+    </div>
+    <div class="cap-grid">
+      {CAPS.map(([code, title, desc]) => (
+        <div class="cap">
+          <div class="cap-code">{code}</div>
+          <h3 class="h-3 cap-title">{title}</h3>
+          <p class="cap-desc">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- 03 Architecture -->
+<section class="section">
+  <div class="container">
+    <div class="section-title-row">
+      <div><div class="eyebrow">03 / Architecture</div></div>
+      <div>
+        <h2 class="h-2 das-title">AX 자동화 + 컨설턴트 게이트.</h2>
+        <p class="lead measure">RDS는 AX 엔진(자동 생성)과 컨설턴트 검증(품질 게이트)의 2층 구조로 운영됩니다. 모든 단계는 감사 로그가 기록됩니다.</p>
+      </div>
+    </div>
+    <figure class="arch-figure">
+      <svg viewBox="0 0 1200 460" width="100%" aria-label="RDS Architecture Diagram">
+        <g font-family="ui-monospace, SF Mono, Menlo, monospace" font-size="11" fill="#8a919c" letter-spacing="1">
+          <text x="0" y="40">L4 — INTERFACE</text>
+          <text x="0" y="160">L3 — RDS ENGINE</text>
+          <text x="0" y="280">L2 — QUALITY GATE</text>
+          <text x="0" y="400">L1 — TARGET SAP</text>
+        </g>
+        <g>
+          <rect x="180" y="20" width="370" height="50" fill="#fff" stroke="#1a3a5c" stroke-width="1" />
+          <text x="365" y="50" text-anchor="middle" font-size="13" fill="#1a3a5c" font-weight="500">Web Console</text>
+          <rect x="590" y="20" width="370" height="50" fill="#fff" stroke="#1a3a5c" stroke-width="1" />
+          <text x="775" y="50" text-anchor="middle" font-size="13" fill="#1a3a5c" font-weight="500">Scenario Library Browser</text>
+        </g>
+        <g>
+          <rect x="180" y="120" width="780" height="80" fill="#0f2440" stroke="#0f2440" />
+          <text x="570" y="148" text-anchor="middle" font-size="14" fill="#fff" font-weight="600">RDS Engine</text>
+          <text x="570" y="172" text-anchor="middle" font-family="ui-monospace, SF Mono, Menlo, monospace" font-size="11" fill="rgba(255,255,255,0.7)">
+            AX Auto-Generator · Synthetic Data Synthesizer · Migration Pipeline
+          </text>
+        </g>
+        <g>
+          <rect x="180" y="240" width="780" height="50" fill="#fff" stroke="#2e7dd1" stroke-width="2" stroke-dasharray="6 3" />
+          <text x="570" y="270" text-anchor="middle" font-size="13" fill="#2e7dd1" font-weight="600">도상 Senior Consultant 검증 (4-eyes Quality Gate)</text>
+        </g>
+        <g>
+          <rect x="180" y="360" width="370" height="50" fill="#f5f7fa" stroke="#c9d0db" stroke-width="1" />
+          <text x="365" y="390" text-anchor="middle" font-size="13" fill="#0f2440" font-weight="500">SAP S/4HANA (별도 인스턴스)</text>
+          <rect x="590" y="360" width="370" height="50" fill="#f5f7fa" stroke="#c9d0db" stroke-width="1" />
+          <text x="775" y="390" text-anchor="middle" font-size="13" fill="#0f2440" font-weight="500">SAP ECC (별도 인스턴스)</text>
+        </g>
+        <g stroke="#c9d0db" stroke-width="1">
+          <line x1="365" y1="70" x2="365" y2="120" />
+          <line x1="775" y1="70" x2="775" y2="120" />
+          <line x1="570" y1="200" x2="570" y2="240" />
+          <line x1="365" y1="290" x2="365" y2="360" />
+          <line x1="775" y1="290" x2="775" y2="360" />
+        </g>
+        <text x="1140" y="40" text-anchor="end" font-family="ui-monospace, SF Mono, Menlo, monospace" font-size="10" fill="#8a919c">FIG.RDS-01</text>
+      </svg>
+      <figcaption class="arch-caption">FIG.RDS-01 — RDS Two-Layer Architecture (RDS는 운영 SAP가 아닌 별도 인스턴스에만 동작)</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 04 Scenarios -->
+<section class="section section--subtle">
+  <div class="container">
+    <div class="section-title-row">
+      <div><div class="eyebrow">04 / Scenarios</div></div>
+      <div><h2 class="h-2">3개 적용 시나리오.</h2></div>
+    </div>
+    <div class="scenario-grid">
+      {SCENARIOS.map(([code, title, desc, meta]) => (
+        <article class="scenario-card">
+          <div class="scenario-code">{code}</div>
+          <h3 class="h-3 scenario-title">{title}</h3>
+          <p class="scenario-desc">{desc}</p>
+          <dl class="scenario-meta">
+            {(meta as [string, string][]).map(([k, v]) => (
+              <div class="scenario-meta-row"><dt>{k}</dt><dd>{v}</dd></div>
+            ))}
+          </dl>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- 05 Implementation -->
+<section class="section">
+  <div class="container">
+    <div class="section-title-row">
+      <div><div class="eyebrow">05 / Implementation</div></div>
+      <div>
+        <h2 class="h-2 das-title">도입 절차 — 5단계.</h2>
+        <p class="lead measure">평균 4~8주. 모든 단계는 명시적 게이트와 산출물을 가지며, 고객 NDA·SoD 통제가 도입 전제 조건입니다.</p>
+      </div>
+    </div>
+    <div class="step-grid">
+      {STEPS.map(([code, title, desc]) => (
+        <div class="step">
+          <div class="step-code">{code}</div>
+          <h3 class="step-title">{title}</h3>
+          <p class="step-desc">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
 <section class="section das-cta">
   <div class="container">
     <div class="cta-grid">
       <div>
         <div class="eyebrow das-cta-eyebrow">Next</div>
-        <h2 class="h-1 das-cta-title">RDS Pilot 도입 검토</h2>
-        <p class="das-cta-lead">상세 카탈로그·도입 사례는 별도 자료 요청 시 제공합니다.</p>
+        <h2 class="h-1 das-cta-title">RDS 환경이 귀사의 도입·양성·신사업 검증에<br />적합한지 2시간 이내에 진단합니다.</h2>
+        <p class="das-cta-lead">도입 전 무상 진단 세션. NDA 기반.</p>
       </div>
       <div>
         <a href="/#contact" class="btn btn--primary">Request Briefing <span class="arrow">→</span></a>
@@ -54,6 +207,36 @@ const STEPS = [
     </div>
   </div>
 </section>
+
+<!-- Disclaimer -->
+<section class="section section--subtle">
+  <div class="container">
+    <div class="das-disclaimer">
+      <p>
+        <strong>본 페이지는 일반 정보 제공을 목적으로 합니다.</strong> 개별 환경의 적합성·도입 효과는 사전 진단 결과에 따라 달라집니다.
+        RDS는 현재 Pilot 단계 솔루션입니다.
+      </p>
+      <p>
+        RDS는 운영 SAP 시스템에 적용되지 않으며, 별도 인스턴스(교육·시연·PoC 환경)에서만 동작합니다.
+        SAP 운영 환경의 데이터·트랜잭션을 변경하지 않습니다.
+      </p>
+      <p>
+        RDS의 합성 데이터(synthetic data)는 실 고객 데이터·개인정보를 포함하지 않으며,
+        산업별 분포·트랜잭션 패턴을 모사합니다.
+      </p>
+      <p>
+        <strong>RDS는 SAP 공식 인증·자격 트레이닝을 대체하지 않습니다.</strong> 인력 양성·역량 강화에 기여하는 보완적 환경입니다.
+        SAP 공식 자격은 SAP SE 및 공인 교육기관을 통해서만 취득 가능합니다.
+      </p>
+      <p>
+        AX 자동 생성 결과는 모든 단계에서 도상 Senior Consultant 검증(4-eyes)을 거치며,
+        비즈니스 의사결정은 인간 컨설턴트의 책임으로 진행됩니다.
+      </p>
+      <p class="das-disclaimer-author">작성·운영: Dosang Solutions Team. 문의: jg.song@dosang.kr</p>
+    </div>
+  </div>
+</section>
+
 <style>
   .das-hero { background: #0f2440; color: #fff; padding: 160px 0 96px; }
   .das-hero .breadcrumb { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; }
@@ -69,11 +252,48 @@ const STEPS = [
   .das-meta-item .v { font-size: 14px; color: #fff; }
   .section-title-row { display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: start; }
   .das-title { margin-bottom: 24px; }
+  .das-lead { margin-bottom: 24px; }
+  .das-body { color: var(--color-text-secondary); margin-bottom: 16px; }
+  .das-bullets { font-size: 17px; line-height: 1.8; color: var(--color-text); padding-left: 24px; max-width: 720px; margin: 0 0 16px; }
+  .das-bullets li { margin-bottom: 8px; }
+  .cap-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--color-border); border-left: 1px solid var(--color-border); margin-top: 48px; }
+  .cap { padding: 40px; border-right: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); background: #fff; }
+  .cap-code { font-family: var(--font-mono); font-size: 13px; color: var(--color-accent); margin-bottom: 24px; }
+  .cap-title { margin-bottom: 12px; }
+  .cap-desc { color: var(--color-text-secondary); font-size: 15px; line-height: 1.7; margin: 0; }
+  .arch-figure { margin: 48px 0 0; }
+  .arch-caption { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-muted); margin-top: 24px; text-align: center; }
+  .scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .scenario-card { background: #fff; border: 1px solid var(--color-border); padding: 40px; }
+  .scenario-code { font-family: var(--font-mono); font-size: 12px; color: var(--color-accent); margin-bottom: 20px; }
+  .scenario-title { margin-bottom: 16px; }
+  .scenario-desc { color: var(--color-text-secondary); font-size: 15px; margin: 0 0 24px; }
+  .scenario-meta { margin: 0; font-size: 13px; color: var(--color-text-muted); border-top: 1px solid var(--color-border); padding-top: 16px; }
+  .scenario-meta-row { display: flex; justify-content: space-between; padding: 6px 0; }
+  .scenario-meta-row dd { margin: 0; }
+  .step-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; margin-top: 48px; }
+  .step { padding: 24px 0; border-top: 1px solid var(--color-border); }
+  .step-code { font-family: var(--font-mono); font-size: 13px; color: var(--color-accent); margin-bottom: 24px; }
+  .step-title { font-size: 17px; font-weight: 600; color: var(--color-navy); margin: 0 0 12px; }
+  .step-desc { font-size: 14px; color: var(--color-text-secondary); margin: 0; }
   .das-cta { background: #0c1926; color: #fff; }
   .cta-grid { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
   .das-cta-eyebrow { color: rgba(255,255,255,0.6); margin-bottom: 16px; }
   .das-cta-title { color: #fff; margin: 0 0 16px; }
   .das-cta-lead { color: rgba(255,255,255,0.7); max-width: 560px; margin: 0; font-size: 17px; }
-  @media (max-width: 1023px) { .section-title-row, .cta-grid { grid-template-columns: 1fr; } .das-meta { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 767px) { .das-meta { grid-template-columns: 1fr; } }
+  .das-disclaimer { max-width: 880px; }
+  .das-disclaimer p { font-size: 13px; color: var(--color-text-secondary); line-height: 1.7; margin: 0 0 12px; }
+  .das-disclaimer-author { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--color-text-muted); margin-top: 16px !important; }
+  @media (max-width: 1023px) {
+    .section-title-row { grid-template-columns: 1fr; }
+    .cap-grid { grid-template-columns: 1fr; }
+    .scenario-grid { grid-template-columns: 1fr; }
+    .step-grid { grid-template-columns: repeat(2, 1fr); }
+    .cta-grid { grid-template-columns: 1fr; }
+    .das-meta { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 767px) {
+    .step-grid { grid-template-columns: 1fr; }
+    .das-meta { grid-template-columns: 1fr; }
+  }
 </style>
