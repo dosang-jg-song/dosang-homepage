@@ -1,0 +1,104 @@
+---
+const STATS = [
+  { value: 20, suffix: "+", label: "Projects Delivered", note: "Global SAP" },
+  { value: 10, suffix: "+", label: "Fortune 500 Clients", note: "Enterprise Tier" },
+  { value: 6, suffix: "Y", label: "Years of Practice", note: "Founded 2020" },
+  { value: 4, suffix: "", label: "Core Practitioners", note: "Specialized" },
+];
+---
+<section id="hero" class="section hero-section">
+  <div class="container">
+    <div class="grid-12 hero-a-grid">
+      <div class="hero-headline-col reveal is-visible">
+        <p class="eyebrow">01 · Practice Brief</p>
+        <h1 class="h-display hero-headline">
+          SAP Stability,<br />
+          <span class="hero-headline-soft">Powered by AI and FinTech.</span>
+        </h1>
+        <p class="lead measure hero-lead">
+          도상유한책임회사는 SAP S/4HANA 전환·Global Tax Compliance·자체 솔루션 사업을 동시 영위하는 정예 컨설팅 펌입니다.
+          Fortune 500 고객을 위한 신뢰 가능한 기술 파트너십을 제공합니다.
+        </p>
+        <div class="hero-cta-row">
+          <a href="#contact" class="btn btn--primary">
+            Request a Briefing <span class="arrow">→</span>
+          </a>
+          <a href="#solutions" class="btn btn--ghost">
+            Explore Solutions <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+      <div class="hero-stats-col reveal is-visible">
+        <div class="hero-stats-card">
+          <div class="eyebrow hero-stats-eyebrow">By the Numbers</div>
+          <div class="hero-stats-grid">
+            {STATS.map(s => (
+              <div class="hero-stat">
+                <div class="hero-stat-value">
+                  <span class="hero-counter" data-target={s.value}>0</span><span class="hero-stat-suffix">{s.suffix}</span>
+                </div>
+                <div class="hero-stat-label">{s.label}</div>
+                <div class="hero-stat-note">{s.note}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section { padding-top: 160px; padding-bottom: 120px; }
+  .hero-a-grid { align-items: start; gap: 64px; }
+  .hero-headline-col { grid-column: span 7; }
+  .hero-stats-col { grid-column: span 5; }
+  .hero-headline { margin-bottom: 32px; }
+  .hero-headline-soft { color: var(--color-text-secondary); font-weight: 400; }
+  .hero-lead { margin-top: 0; margin-bottom: 40px; }
+  .hero-cta-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .hero-stats-card { border-top: 1px solid var(--color-border); padding-top: 28px; }
+  .hero-stats-eyebrow { margin-bottom: 32px; }
+  .hero-stats-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px 32px;
+  }
+  .hero-stat-value {
+    font-family: var(--font-mono);
+    font-size: 56px; font-weight: 500; line-height: 1;
+    color: var(--color-navy); letter-spacing: -0.02em;
+  }
+  .hero-stat-suffix { color: var(--color-accent); margin-left: 2px; }
+  .hero-stat-label {
+    font-size: 13px; font-weight: 500; color: var(--color-text);
+    margin-top: 12px; line-height: 1.4;
+  }
+  .hero-stat-note {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+    color: var(--color-text-muted); text-transform: uppercase; margin-top: 4px;
+  }
+</style>
+
+<script>
+  // Counter animation on scroll into view
+  const counters = document.querySelectorAll<HTMLSpanElement>(".hero-counter");
+  if (counters.length && "IntersectionObserver" in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target as HTMLSpanElement;
+        const target = parseInt(el.dataset.target || "0", 10);
+        const dur = 1000;
+        const start = performance.now();
+        const tick = (now: number) => {
+          const t = Math.min((now - start) / dur, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = String(Math.round(target * eased));
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        obs.unobserve(el);
+      });
+    }, { threshold: 0.3 });
+    counters.forEach(el => obs.observe(el));
+  }
+</script>

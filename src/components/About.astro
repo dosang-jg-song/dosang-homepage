@@ -1,0 +1,72 @@
+---
+const INDICATORS = [
+  ["Practice Tenure", "6+", "Years"],
+  ["Global SAP Projects", "20+", "Indicative"],
+  ["Enterprise Clients", "10+", "Fortune 500"],
+  ["Coverage Markets", "8", "EU · APAC · NA"],
+  ["Tax Solutions", "12+", "DRC · Taxware · Peppol"],
+  ["Languages", "3", "KO · EN · JA"],
+];
+---
+<section id="about" class="section section--subtle">
+  <div class="container">
+    <div class="grid-12 about-grid">
+      <div class="about-text-col reveal">
+        <p class="eyebrow">02 · About</p>
+        <h2 class="h-1">신뢰를 바탕으로<br />혁신을 이끕니다.</h2>
+        <p class="lead measure about-lead">
+          도상은 글로벌 SAP S/4HANA 컨설팅과 자체 솔루션 사업을 동시에 영위하는 정예 컨설팅 펌입니다.
+          작은 규모로 깊은 전문성을 유지하며, 정확하고 검증 가능한 결과만을 약속합니다.
+        </p>
+        <p class="measure about-body">
+          "SAP Stability, Powered by AI and FinTech" — 안정성을 기반으로 AI와 FinTech 영역의 새로운 가치를 창출합니다.
+          Fortune 500을 포함한 글로벌 기업의 핵심 시스템 전환·Tax Compliance·디지털 자산 회계 자동화를 수행해 왔습니다.
+        </p>
+      </div>
+      <div class="about-data-col reveal">
+        <div class="about-data-card">
+          <div class="eyebrow about-data-eyebrow">Practice Indicators (Indicative)</div>
+          <dl class="about-data-list">
+            {INDICATORS.map(([label, val, note]) => (
+              <div class="about-data-row">
+                <dt>{label}</dt>
+                <dd><span class="about-data-val">{val}</span><span class="about-data-note">{note}</span></dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid { gap: 64px; align-items: start; }
+  .about-text-col { grid-column: span 7; }
+  .about-data-col { grid-column: span 5; }
+  .about-lead { margin: 24px 0 24px; }
+  .about-body { font-size: 17px; line-height: 1.7; color: var(--color-text); }
+  .about-data-card {
+    border: 1px solid var(--color-border); padding: 32px; background: var(--color-bg);
+  }
+  .about-data-eyebrow { margin-bottom: 24px; }
+  .about-data-list { margin: 0; padding: 0; }
+  .about-data-row {
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: baseline; gap: 16px;
+    padding: 16px 0; border-top: 1px solid var(--color-border);
+  }
+  .about-data-row:first-child { border-top: 0; padding-top: 0; }
+  .about-data-row dt {
+    font-size: 13px; color: var(--color-text-secondary); font-weight: 500;
+  }
+  .about-data-row dd {
+    margin: 0; font-family: var(--font-mono); font-size: 14px;
+    color: var(--color-navy); display: flex; align-items: baseline; gap: 8px;
+  }
+  .about-data-val { font-weight: 500; font-size: 16px; color: var(--color-navy); }
+  .about-data-note {
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+</style>
