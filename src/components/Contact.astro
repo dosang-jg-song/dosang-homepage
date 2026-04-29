@@ -104,7 +104,12 @@ const CONTACT_INFO = [
   .form-status.success { color: #22c55e; }
   .form-status.error { color: #ef4444; }
   @media (max-width: 1023px) {
-    .contact-info-col, .contact-form-col { grid-column: span 12; }
+    .contact-info-col, .contact-form-col { grid-column: 1 / -1; }
+    .contact-grid { gap: 48px; }
+  }
+  @media (max-width: 767px) {
+    .contact-info-row { grid-template-columns: 80px 1fr; gap: 12px; }
+    .contact-lead { margin: 16px 0 32px; max-width: 100%; }
   }
 </style>
 

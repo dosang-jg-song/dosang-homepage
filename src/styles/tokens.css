@@ -93,7 +93,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
+
+html { overflow-x: hidden; }
 
 img, svg { display: block; max-width: 100%; }
 button { font: inherit; cursor: pointer; }
@@ -122,6 +127,10 @@ a:hover { color: var(--color-accent-light); }
 .section { padding-block: var(--section-pad); }
 .section--dark { background: var(--color-bg-dark); color: #e2e6ec; }
 .section--subtle { background: var(--color-bg-subtle); }
+
+@media (max-width: 1023px) {
+  .grid-12 { grid-template-columns: repeat(6, 1fr); gap: 20px; }
+}
 
 @media (max-width: 767px) {
   :root { --section-pad: 64px; }
