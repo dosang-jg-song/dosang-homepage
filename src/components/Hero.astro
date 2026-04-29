@@ -76,6 +76,15 @@ const STATS = [
     font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
     color: var(--color-text-muted); text-transform: uppercase; margin-top: 4px;
   }
+  @media (max-width: 1023px) {
+    .hero-headline-col, .hero-stats-col { grid-column: 1 / -1; }
+    .hero-a-grid { gap: 48px; }
+    .hero-section { padding-top: 120px; padding-bottom: 80px; }
+  }
+  @media (max-width: 767px) {
+    .hero-stats-grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+    .hero-stat-value { font-size: 44px; }
+  }
 </style>
 
 <script>
