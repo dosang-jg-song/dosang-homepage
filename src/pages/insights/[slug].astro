@@ -202,6 +202,73 @@ const CAT_COLOR = {
     padding: 0; font-size: inherit; font-family: inherit;
   }
   .article-body :global(pre .line) { display: block; }
+
+  /* Workflow Diagram — Horizontal */
+  .article-body :global(.workflow-fig) { margin: 32px 0 40px; }
+  .article-body :global(.workflow-row) {
+    display: flex; gap: 8px; align-items: stretch; flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .article-body :global(.workflow-step) {
+    flex: 1; min-width: 140px;
+    border: 1px solid var(--color-border);
+    padding: 20px 16px; background: var(--color-bg);
+    text-align: center;
+    transition: transform 300ms var(--ease), border-color 300ms var(--ease);
+  }
+  .article-body :global(.workflow-step:hover) {
+    transform: translateY(-2px); border-color: var(--color-accent);
+  }
+  .article-body :global(.workflow-step-code) {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--color-accent); letter-spacing: 0.12em;
+    margin: 0 0 12px;
+  }
+  .article-body :global(.workflow-step-title) {
+    font-size: 14px; font-weight: 600; color: var(--color-navy);
+    margin: 0 0 6px; line-height: 1.4;
+  }
+  .article-body :global(.workflow-step-sub) {
+    font-size: 12px; color: var(--color-text-secondary);
+    margin: 0; line-height: 1.5;
+  }
+  .article-body :global(.workflow-arrow) {
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); color: var(--color-text-muted);
+    font-size: 16px; min-width: 16px;
+  }
+  .article-body :global(.workflow-caption) {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--color-text-muted); margin-top: 16px;
+    text-align: center; letter-spacing: 0.08em;
+  }
+
+  /* Workflow Diagram — Vertical */
+  .article-body :global(.workflow-fig--vertical .workflow-row) {
+    flex-direction: column; gap: 0; align-items: stretch;
+  }
+  .article-body :global(.workflow-fig--vertical .workflow-step) {
+    min-width: auto;
+  }
+  .article-body :global(.workflow-fig--vertical .workflow-arrow) {
+    height: 24px; transform: rotate(90deg);
+  }
+  .article-body :global(.workflow-fig--vertical .workflow-step--terminal) {
+    background: var(--color-bg-subtle);
+    border-color: var(--color-accent);
+  }
+  .article-body :global(.workflow-fig--vertical .workflow-step--terminal .workflow-step-title) {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 767px) {
+    .article-body :global(.workflow-row) {
+      flex-direction: column; gap: 0;
+    }
+    .article-body :global(.workflow-arrow) {
+      transform: rotate(90deg); height: 24px;
+    }
+  }
   .article-body :global(blockquote) {
     background: var(--color-bg-subtle); border-left: 3px solid var(--color-accent);
     margin: 24px 0; padding: 16px 24px;

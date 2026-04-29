@@ -30,23 +30,52 @@ SE11에서 테이블·필드 실존 확인. 필드 길이·타입 일치 검증.
 
 ## 2. 자동화 도구
 
-도상은 자체 개발한 Code Verification Pipeline을 운영합니다:
+도상은 자체 개발한 Code Verification Pipeline을 운영합니다.
 
-```
-[AI 생성 코드]
-   ↓
-[1. SAP API Hub 조회]
-   ↓
-[2. SE37 시그니처 비교]
-   ↓
-[3. SI Catalog 대조]
-   ↓
-[4. SE11 메타데이터 검증]
-   ↓
-[5. Senior 컨설턴트 검토]
-   ↓
-[Production 적용]
-```
+<figure class="workflow-fig workflow-fig--vertical">
+  <div class="workflow-row">
+    <div class="workflow-step workflow-step--terminal">
+      <p class="workflow-step-code">INPUT</p>
+      <p class="workflow-step-title">AI 생성 코드</p>
+    </div>
+    <div class="workflow-arrow">↓</div>
+    <div class="workflow-step">
+      <p class="workflow-step-code">GATE 01</p>
+      <p class="workflow-step-title">SAP API Hub 조회</p>
+      <p class="workflow-step-sub">존재하지 않는 BAPI·Function 검출</p>
+    </div>
+    <div class="workflow-arrow">↓</div>
+    <div class="workflow-step">
+      <p class="workflow-step-code">GATE 02</p>
+      <p class="workflow-step-title">SE37 시그니처 비교</p>
+      <p class="workflow-step-sub">파라미터 이름·타입·필수 여부 검증</p>
+    </div>
+    <div class="workflow-arrow">↓</div>
+    <div class="workflow-step">
+      <p class="workflow-step-code">GATE 03</p>
+      <p class="workflow-step-title">SI Catalog 대조</p>
+      <p class="workflow-step-sub">S/4HANA Simplification Item 영향도</p>
+    </div>
+    <div class="workflow-arrow">↓</div>
+    <div class="workflow-step">
+      <p class="workflow-step-code">GATE 04</p>
+      <p class="workflow-step-title">SE11 메타데이터 검증</p>
+      <p class="workflow-step-sub">테이블·필드 실존 + 길이·타입 일치</p>
+    </div>
+    <div class="workflow-arrow">↓</div>
+    <div class="workflow-step">
+      <p class="workflow-step-code">GATE 05</p>
+      <p class="workflow-step-title">Senior 컨설턴트 검토</p>
+      <p class="workflow-step-sub">도메인 지식 기반 최종 검증</p>
+    </div>
+    <div class="workflow-arrow">↓</div>
+    <div class="workflow-step workflow-step--terminal">
+      <p class="workflow-step-code">OUTPUT</p>
+      <p class="workflow-step-title">Production 적용</p>
+    </div>
+  </div>
+  <figcaption class="workflow-caption">FIG.AX-02 — Code Verification Pipeline</figcaption>
+</figure>
 
 ## 3. 정확도 KPI
 
