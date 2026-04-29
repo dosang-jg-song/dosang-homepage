@@ -1,0 +1,64 @@
+---
+export interface Props {
+  title: string;
+  effectiveDate: string;
+  version: string;
+}
+const { title, effectiveDate, version } = Astro.props;
+---
+<section class="legal-hero">
+  <div class="container-narrow">
+    <div class="breadcrumb">
+      <a href="/">Home</a> · Legal · {title}
+    </div>
+    <h1 class="h-1 legal-title">{title}</h1>
+    <div class="legal-meta">
+      <span>Effective: {effectiveDate}</span> · <span>Version: {version}</span> · <span>도상유한책임회사 (Dosang LLC)</span>
+    </div>
+  </div>
+</section>
+
+<article class="legal-body">
+  <div class="container-narrow legal-prose">
+    <slot />
+  </div>
+</article>
+
+<style>
+  .legal-hero {
+    padding: 160px 0 80px;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .container-narrow {
+    width: 100%; max-width: 880px; margin: 0 auto; padding-inline: 32px;
+  }
+  .breadcrumb {
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.08em; color: var(--color-text-muted);
+    text-transform: uppercase; margin-bottom: 32px;
+  }
+  .breadcrumb a { color: var(--color-text-muted); }
+  .legal-title { margin-bottom: 24px; }
+  .legal-meta {
+    font-family: var(--font-mono); font-size: 12px; color: var(--color-text-muted);
+    letter-spacing: 0.06em;
+  }
+  .legal-body { padding: 64px 0 96px; }
+  .legal-prose :global(p) { font-size: 16px; line-height: 1.8; color: var(--color-text); margin: 0 0 20px; }
+  .legal-prose :global(h2) {
+    font-size: 24px; font-weight: 700; color: var(--color-navy);
+    margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid var(--color-border);
+  }
+  .legal-prose :global(h3) {
+    font-size: 18px; font-weight: 600; color: var(--color-navy); margin: 32px 0 12px;
+  }
+  .legal-prose :global(ul), .legal-prose :global(ol) {
+    font-size: 16px; line-height: 1.8; color: var(--color-text); margin: 0 0 20px; padding-left: 24px;
+  }
+  .legal-prose :global(li) { margin-bottom: 6px; }
+  .legal-prose :global(table) { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 14px; }
+  .legal-prose :global(th), .legal-prose :global(td) { border: 1px solid var(--color-border); padding: 12px; text-align: left; }
+  .legal-prose :global(th) { background: var(--color-bg-subtle); font-weight: 600; color: var(--color-navy); }
+  .legal-prose :global(strong) { color: var(--color-navy); }
+</style>

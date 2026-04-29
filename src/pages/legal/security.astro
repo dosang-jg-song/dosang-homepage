@@ -1,0 +1,82 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import LegalPage from "../../components/LegalPage.astro";
+---
+<BaseLayout
+  title="Information Security | Dosang LLC"
+  description="도상유한책임회사 정보보안 정책"
+>
+  <Header />
+  <main id="main">
+    <LegalPage title="Information Security" effectiveDate="2026-04-29" version="v1.0">
+      <p>도상유한책임회사는 고객 정보·프로젝트 자산·내부 정보의 기밀성·무결성·가용성을 보장하기 위해 다음 정보보안 정책을 운영합니다.</p>
+
+      <h2>1. 정보 분류 체계</h2>
+      <table>
+        <thead><tr><th>분류</th><th>예시</th><th>접근 권한</th></tr></thead>
+        <tbody>
+          <tr><td>Public</td><td>홈페이지 콘텐츠, 공개 인사이트</td><td>제한 없음</td></tr>
+          <tr><td>Internal</td><td>내부 운영 문서, SOP</td><td>임직원</td></tr>
+          <tr><td>Confidential</td><td>고객 프로젝트 산출물, 계약</td><td>프로젝트 참여자</td></tr>
+          <tr><td>Restricted</td><td>고객 시스템 접근 자격증명</td><td>최소 권한 원칙</td></tr>
+        </tbody>
+      </table>
+
+      <h2>2. 기술적 보안 조치</h2>
+      <ul>
+        <li>전 임직원 PC의 디스크 암호화 (FileVault / BitLocker)</li>
+        <li>2FA 강제 (이메일·GitHub·SaaS 도구)</li>
+        <li>VPN 기반 원격 접속</li>
+        <li>패스워드 매니저 사용 의무</li>
+        <li>정기 보안 업데이트 적용</li>
+      </ul>
+
+      <h2>3. 관리적 보안 조치</h2>
+      <ul>
+        <li>입사 시 NDA(Non-Disclosure Agreement) 체결</li>
+        <li>고객사 프로젝트별 별도 NDA 체결</li>
+        <li>퇴사 시 모든 자격증명·문서 회수</li>
+        <li>분기 1회 보안 의식 교육</li>
+        <li>연 1회 정보자산 감사</li>
+      </ul>
+
+      <h2>4. 사고 대응 절차</h2>
+      <p>보안 사고 발생 시 다음 절차를 따릅니다:</p>
+      <ol>
+        <li>발견 즉시 대표(송재곤)에게 보고</li>
+        <li>영향 범위 평가 (1시간 이내)</li>
+        <li>영향 받은 고객사 통지 (24시간 이내)</li>
+        <li>관계 기관 신고 (필요 시, KISA 등)</li>
+        <li>사후 분석 보고서 작성 (7일 이내)</li>
+      </ol>
+
+      <h2>5. 데이터 처리 위탁 검증</h2>
+      <p>외부 서비스 이용 시 다음을 검증합니다:</p>
+      <ul>
+        <li>서비스 제공자의 보안 인증 (ISO 27001, SOC 2 등)</li>
+        <li>데이터 처리 위치 (역외 이전 여부)</li>
+        <li>위탁 계약서의 보안 조항</li>
+      </ul>
+
+      <h2>6. 취약점 신고</h2>
+      <p>본 사이트 또는 도상의 시스템에서 보안 취약점을 발견하셨다면 다음 이메일로 신고 부탁드립니다:</p>
+      <p><strong>security@dosang.kr</strong> (또는 jg.song@dosang.kr)</p>
+      <p>신고 후 5일 이내 응답을 약속드립니다. 책임 있는 신고에 대해 감사 표시합니다.</p>
+
+      <h2>7. 회사 정보</h2>
+      <p>
+        <strong>도상유한책임회사 (Dosang LLC)</strong><br />
+        대표: 송재곤 | 사업자등록번호: 253-87-03688 | 법인등록번호: 180115-0000224<br />
+        부산광역시 남구 용호로42번길 104-11, 사무동 1층
+      </p>
+
+      <h2>8. 변경 이력</h2>
+      <ul>
+        <li>v1.0 (2026-04-29): 최초 제정</li>
+      </ul>
+    </LegalPage>
+  </main>
+  <Footer />
+</BaseLayout>

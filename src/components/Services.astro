@@ -1,0 +1,74 @@
+---
+const SERVICES = [
+  {
+    code: "S.01", title: "S/4HANA Conversion",
+    summary: "ECC → S/4HANA 안정적 전환 (Brownfield · Selective · Greenfield)",
+    bullets: ["Custom Code Migration", "Simplification Item 영향도 분석", "Transport Risk Control"],
+  },
+  {
+    code: "S.02", title: "SAP ERP Implementation",
+    summary: "글로벌 사업장 단위의 신규 SAP 구축",
+    bullets: ["Activate Methodology", "Multi-country Rollout", "Localization · Tax 통합"],
+  },
+  {
+    code: "S.03", title: "Global Tax Compliance",
+    summary: "SAP DRC · Tax Service · Taxware 기반 글로벌 세무 자동화",
+    bullets: ["eInvoice (Peppol · 5-corner)", "Statutory Report Localization", "BEPS Pillar Two 대응"],
+  },
+  {
+    code: "S.04", title: "AX — AI Development Method",
+    summary: "AI 기반 SAP 개발방법론 (도상 자체 IP)",
+    bullets: ["FD → ABAP 자동 생성", "Code Review · QA 자동화", "Test Data 합성·검증"],
+  },
+];
+---
+<section id="services" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="eyebrow">03 · Services</p>
+      <h2 class="h-1">핵심 서비스</h2>
+      <p class="lead measure">SAP S/4HANA 전 생명주기와 Global Tax Compliance, 그리고 AI 기반 자체 개발방법론.</p>
+    </div>
+    <div class="services-grid grid-12">
+      {SERVICES.map(s => (
+        <article class="service-card reveal">
+          <div class="service-code eyebrow">{s.code}</div>
+          <h3 class="h-3 service-title">{s.title}</h3>
+          <p class="service-summary">{s.summary}</p>
+          <ul class="service-bullets">
+            {s.bullets.map(b => <li>{b}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-header { margin-bottom: 64px; max-width: 720px; }
+  .section-header .lead { margin-top: 16px; }
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr); gap: 32px;
+  }
+  .service-card {
+    grid-column: span 1;
+    border: 1px solid var(--color-border); padding: 40px;
+    background: var(--color-bg);
+    transition: transform 300ms var(--ease), border-color 300ms var(--ease);
+  }
+  .service-card:hover { transform: translateY(-2px); border-color: var(--color-accent); }
+  .service-code { margin-bottom: 16px; }
+  .service-title { margin-bottom: 12px; }
+  .service-summary { color: var(--color-text-secondary); font-size: 15px; line-height: 1.7; margin-bottom: 20px; }
+  .service-bullets { margin: 0; padding: 0; list-style: none; }
+  .service-bullets li {
+    position: relative; padding-left: 16px; font-size: 14px;
+    color: var(--color-text); line-height: 1.7;
+  }
+  .service-bullets li::before {
+    content: "—"; position: absolute; left: 0; color: var(--color-accent);
+  }
+  @media (max-width: 1023px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>

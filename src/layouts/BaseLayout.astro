@@ -1,0 +1,86 @@
+---
+import "../styles/tokens.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  jsonLd?: any;
+}
+
+const {
+  title = "Dosang LLC — SAP Stability, Powered by AI and FinTech",
+  description = "도상유한책임회사 — 글로벌 SAP S/4HANA 컨설팅 및 자체 솔루션 사업",
+  ogImage = "/dosang-logo.svg",
+  jsonLd,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+
+// Organization JSON-LD (모든 페이지 공통)
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "도상유한책임회사",
+  "alternateName": "Dosang LLC",
+  "url": "https://dosang.kr",
+  "logo": "https://dosang.kr/dosang-logo.svg",
+  "email": "jg.song@dosang.kr",
+  "founder": {
+    "@type": "Person",
+    "name": "송재곤"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "용호로42번길 104-11, 사무동 1층",
+    "addressLocality": "남구",
+    "addressRegion": "부산광역시",
+    "addressCountry": "KR"
+  },
+  "taxID": "253-87-03688",
+  "vatID": "253-87-03688",
+  "naics": "541512",
+  "description": description,
+};
+---
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta name="theme-color" content="#0f2440" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).toString()} />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:site_name" content="Dosang LLC" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site).toString()} />
+
+    <link rel="alternate" type="application/rss+xml" title="Dosang Insights" href="/insights/rss.xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+
+    <link rel="icon" type="image/svg+xml" href="/dosang-logo.svg" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <a href="#main" class="skip-link">본문으로 건너뛰기</a>
+    <slot />
+  </body>
+</html>

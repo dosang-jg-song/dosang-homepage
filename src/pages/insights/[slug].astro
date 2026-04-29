@@ -1,0 +1,258 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+export async function getStaticPaths() {
+  const insights = await getCollection('insights');
+  return insights.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await post.render();
+
+const allInsights = await getCollection('insights');
+const related = allInsights
+  .filter(p => p.slug !== post.slug && p.data.category === post.data.category)
+  .slice(0, 3);
+
+// Article JSON-LD
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.data.title,
+  "description": post.data.summary,
+  "datePublished": post.data.date.toISOString(),
+  "dateModified": post.data.date.toISOString(),
+  "author": {
+    "@type": "Organization",
+    "name": post.data.author,
+    "url": "https://dosang.kr"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "도상유한책임회사",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://dosang.kr/dosang-logo.svg"
+    }
+  },
+  "articleSection": post.data.category,
+  "keywords": post.data.tags.join(", "),
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://dosang.kr/insights/${post.slug}/`
+  }
+};
+
+const CAT_COLOR = {
+  'Global Tax': 'var(--color-accent)',
+  'SAP 전환': 'var(--color-navy)',
+  'Tax Compliance': '#22c55e',
+  'AX': '#f59e0b',
+} as const;
+---
+<BaseLayout
+  title={`${post.data.title} | Dosang Insights`}
+  description={post.data.summary}
+  jsonLd={articleJsonLd}
+>
+  <Header />
+  <main id="main">
+    <section class="article-hero">
+      <div class="article-hero-inner">
+        <div class="breadcrumb">
+          <a href="/">Home</a> · <a href="/insights">Insights</a> · Article
+        </div>
+        <div class="article-cat-row">
+          <span class="article-cat" style={`color:${CAT_COLOR[post.data.category]}; border-color:${CAT_COLOR[post.data.category]}`}>{post.data.category}</span>
+        </div>
+        <h1 class="h-1 article-title">{post.data.title}</h1>
+        <div class="article-meta">
+          <span>By {post.data.author}</span>
+          <span>·</span>
+          <span>{post.data.date.toISOString().slice(0, 10).replace(/-/g, '.')}</span>
+          <span>·</span>
+          <span>{post.data.readMin} min read</span>
+        </div>
+      </div>
+    </section>
+
+    <article class="article-grid">
+      <div class="article-body">
+        <Content />
+      </div>
+      <aside class="article-toc" aria-label="Table of Contents">
+        <div class="toc-eyebrow">Contents</div>
+        <ul class="toc-list">
+          {headings.filter(h => h.depth <= 3).map(h => (
+            <li class={`toc-item toc-item--depth${h.depth}`}>
+              <a href={`#${h.slug}`}>{h.text}</a>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    </article>
+
+    {related.length > 0 && (
+      <section class="section section--subtle related-section">
+        <div class="container">
+          <div class="eyebrow related-eyebrow">Related Articles</div>
+          <div class="related-grid">
+            {related.map(p => (
+              <a href={`/insights/${p.slug}`} class="related-card">
+                <span class="related-cat" style={`color:${CAT_COLOR[p.data.category]}`}>{p.data.category}</span>
+                <h3 class="related-title">{p.data.title}</h3>
+                <p class="related-summary">{p.data.summary}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .article-hero {
+    padding: 160px 0 80px;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .article-hero-inner {
+    max-width: 1080px; margin: 0 auto; padding-inline: 32px;
+  }
+  .breadcrumb {
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.08em; color: var(--color-text-muted);
+    text-transform: uppercase; margin-bottom: 32px;
+  }
+  .breadcrumb a { color: var(--color-text-muted); }
+  .article-cat-row { margin-bottom: 28px; }
+  .article-cat {
+    display: inline-block; padding: 4px 10px; border: 1px solid;
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .article-title {
+    margin-bottom: 32px; max-width: 880px;
+    font-size: clamp(32px, 4vw, 48px);
+  }
+  .article-meta {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--color-text-muted); letter-spacing: 0.06em;
+  }
+
+  .article-grid {
+    display: grid; grid-template-columns: 720px 240px;
+    gap: 80px; padding: 80px 32px;
+    max-width: 1080px; margin: 0 auto;
+  }
+  .article-body :global(p) {
+    font-size: 17px; line-height: 1.8; color: var(--color-text); margin: 0 0 24px;
+  }
+  .article-body :global(p:first-child) {
+    font-size: 19px; font-weight: 500; line-height: 1.7;
+    color: var(--color-text); margin-bottom: 32px;
+  }
+  .article-body :global(h2) {
+    font-size: 28px; font-weight: 700; color: var(--color-navy);
+    margin: 64px 0 24px; letter-spacing: -0.01em;
+    padding-top: 24px; border-top: 1px solid var(--color-border);
+  }
+  .article-body :global(h3) {
+    font-size: 20px; font-weight: 600; color: var(--color-navy);
+    margin: 40px 0 16px;
+  }
+  .article-body :global(ul), .article-body :global(ol) {
+    font-size: 17px; line-height: 1.8; color: var(--color-text); margin: 0 0 24px; padding-left: 28px;
+  }
+  .article-body :global(li) { margin-bottom: 8px; }
+  .article-body :global(table) {
+    width: 100%; border-collapse: collapse; margin: 24px 0;
+    font-size: 14px;
+  }
+  .article-body :global(th), .article-body :global(td) {
+    border: 1px solid var(--color-border); padding: 12px 16px; text-align: left;
+  }
+  .article-body :global(th) {
+    background: var(--color-bg-subtle); font-weight: 600; color: var(--color-navy);
+  }
+  .article-body :global(code) {
+    background: var(--color-bg-subtle); padding: 2px 6px; border-radius: 3px;
+    font-family: var(--font-mono); font-size: 14px; color: var(--color-navy);
+  }
+  .article-body :global(pre) {
+    background: var(--color-bg-subtle); padding: 24px; overflow-x: auto;
+    margin: 24px 0; border-left: 3px solid var(--color-accent);
+  }
+  .article-body :global(pre code) {
+    background: transparent; padding: 0; font-size: 13px;
+  }
+  .article-body :global(blockquote) {
+    background: var(--color-bg-subtle); border-left: 3px solid var(--color-accent);
+    margin: 24px 0; padding: 16px 24px;
+  }
+  .article-body :global(hr) {
+    border: 0; border-top: 1px solid var(--color-border); margin: 48px 0;
+  }
+  .article-body :global(em) { color: var(--color-text-secondary); }
+  .article-body :global(a) {
+    color: var(--color-accent); border-bottom: 1px solid currentColor;
+  }
+
+  .article-toc {
+    position: sticky; top: 96px; align-self: start;
+    border-left: 1px solid var(--color-border); padding-left: 24px;
+  }
+  .toc-eyebrow {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
+    color: var(--color-text-muted); text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .toc-list { list-style: none; margin: 0; padding: 0; }
+  .toc-item { margin-bottom: 12px; }
+  .toc-item--depth3 { margin-left: 16px; }
+  .toc-item a {
+    font-size: 13px; color: var(--color-text-secondary);
+    text-decoration: none; line-height: 1.5;
+    display: block;
+  }
+  .toc-item a:hover { color: var(--color-accent); }
+
+  .related-section { padding: 80px 0; }
+  .related-eyebrow { margin-bottom: 32px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .related-card {
+    display: flex; flex-direction: column;
+    background: var(--color-bg); padding: 32px;
+    border: 1px solid var(--color-border);
+    text-decoration: none; color: inherit;
+    transition: transform 300ms var(--ease), border-color 300ms var(--ease);
+  }
+  .related-card:hover { transform: translateY(-2px); border-color: var(--color-accent); }
+  .related-cat {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .related-title {
+    font-size: 16px; font-weight: 600; color: var(--color-navy);
+    margin: 0 0 12px; line-height: 1.4;
+  }
+  .related-summary {
+    font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; margin: 0;
+  }
+
+  @media (max-width: 1023px) {
+    .article-grid { grid-template-columns: 1fr; gap: 48px; }
+    .article-toc { position: static; border-left: 0; border-top: 1px solid var(--color-border); padding: 24px 0 0; }
+    .related-grid { grid-template-columns: 1fr; }
+  }
+</style>

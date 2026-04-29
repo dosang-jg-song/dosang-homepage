@@ -1,0 +1,7 @@
+# robots.txt for dosang.kr
+# 도상유한책임회사 (Dosang LLC)
+
+User-agent: *
+Allow: /
+
+Sitemap: https://dosang.kr/sitemap.xml

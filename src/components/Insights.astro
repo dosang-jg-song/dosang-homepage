@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('insights');
+const featured = all.filter(p => p.data.featured).slice(0, 3);
+const previews = featured.length === 3
+  ? featured
+  : all.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 3);
+
+const CAT_COLOR = {
+  'Global Tax': 'var(--color-accent)',
+  'SAP 전환': 'var(--color-navy)',
+  'Tax Compliance': '#22c55e',
+  'AX': '#f59e0b',
+} as const;
+---
+<section id="insights" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="eyebrow">06 · Insights</p>
+      <h2 class="h-1">최신 인사이트</h2>
+      <p class="lead measure">Global Tax · SAP 전환 · Tax Compliance · AX 4개 카테고리에서 발행하는 컨설팅 인사이트.</p>
+    </div>
+    <div class="insights-grid grid-12">
+      {previews.map((p, i) => (
+        <article class="insight-card reveal">
+          <div class="insight-thumb" aria-hidden="true">
+            <span class="insight-fig">FIG.{(i + 1).toString().padStart(2, "0")}</span>
+          </div>
+          <div class="insight-meta">
+            <span class="insight-cat" style={`color:${CAT_COLOR[p.data.category]}; border-color:${CAT_COLOR[p.data.category]}`}>{p.data.category}</span>
+            <span class="insight-date">{p.data.date.toISOString().slice(0, 10).replace(/-/g, '.')}</span>
+          </div>
+          <h3 class="insight-title">{p.data.title}</h3>
+          <p class="insight-summary">{p.data.summary}</p>
+          <a href={`/insights/${p.slug}`} class="insight-link">읽기 <span class="arrow">→</span></a>
+        </article>
+      ))}
+    </div>
+    <div class="insights-all reveal">
+      <a href="/insights" class="btn btn--ghost">전체 인사이트 보기 <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .insights-grid { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .insight-card { grid-column: span 1; display: flex; flex-direction: column; }
+  .insight-thumb {
+    background: #0f2440; aspect-ratio: 16 / 9; margin-bottom: 24px;
+    display: flex; align-items: center; justify-content: center;
+    background-image: linear-gradient(135deg, transparent 49%, rgba(255,255,255,0.06) 49%, rgba(255,255,255,0.06) 51%, transparent 51%);
+    background-size: 14px 14px;
+  }
+  .insight-fig {
+    color: rgba(255,255,255,0.6); font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.12em; padding: 6px 10px; border: 1px solid rgba(255,255,255,0.2);
+  }
+  .insight-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .insight-cat {
+    display: inline-block; padding: 4px 10px; border: 1px solid;
+    font-size: 11px; font-family: var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .insight-date {
+    font-family: var(--font-mono); font-size: 11px; color: var(--color-text-muted);
+    letter-spacing: 0.06em;
+  }
+  .insight-title {
+    font-size: 18px; font-weight: 600; line-height: 1.4; color: var(--color-navy);
+    margin: 0 0 12px; letter-spacing: -0.005em;
+  }
+  .insight-summary {
+    font-size: 14px; line-height: 1.7; color: var(--color-text-secondary); margin-bottom: 20px;
+  }
+  .insight-link { color: var(--color-accent); font-size: 13px; font-weight: 500; margin-top: auto; }
+  .insights-all { text-align: center; margin-top: 64px; }
+  @media (max-width: 1023px) {
+    .insights-grid { grid-template-columns: 1fr; gap: 48px; }
+  }
+</style>

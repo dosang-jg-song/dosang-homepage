@@ -1,0 +1,52 @@
+---
+const EXPS = [
+  ["E.01", "Automotive OEM", "Global Top 10 OEM 컨설팅 경험"],
+  ["E.02", "Financial Services", "은행·보험 SAP FI / Tax 통합"],
+  ["E.03", "Manufacturing", "다국가 생산 단위 SAP 롤아웃"],
+  ["E.04", "Public Sector", "공공기관 Statutory Reporting"],
+  ["E.05", "Digital Native", "스테이블코인·디지털자산 회계"],
+];
+---
+<section id="expertise" class="section section--subtle">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="eyebrow">05 · Expertise</p>
+      <h2 class="h-1">전문 분야</h2>
+    </div>
+    <div class="expertise-grid">
+      {EXPS.map(([code, name, note]) => (
+        <div class="expertise-cell reveal">
+          <div class="eyebrow expertise-code">{code}</div>
+          <h3 class="expertise-name">{name}</h3>
+          <p class="expertise-note">{note}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .expertise-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+  }
+  .expertise-cell {
+    padding: 32px 24px;
+    border-right: 1px solid var(--color-border);
+  }
+  .expertise-cell:last-child { border-right: 0; }
+  .expertise-code { margin-bottom: 16px; }
+  .expertise-name {
+    font-size: 18px; font-weight: 600; color: var(--color-navy);
+    margin: 0 0 8px; letter-spacing: -0.005em;
+  }
+  .expertise-note {
+    font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; margin: 0;
+  }
+  @media (max-width: 1023px) {
+    .expertise-grid { grid-template-columns: repeat(2, 1fr); }
+    .expertise-cell { border-right: 0; border-bottom: 1px solid var(--color-border); }
+  }
+  @media (max-width: 767px) {
+    .expertise-grid { grid-template-columns: 1fr; }
+  }
+</style>
