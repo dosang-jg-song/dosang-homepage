@@ -1,16 +1,16 @@
 ---
 const CAPS = [
-  ["C.01", "Multi-chain Ingestion", "7개 주요 체인의 트랜잭션 데이터를 정규화하여 SAP에 적재합니다."],
-  ["C.02", "IFRS / K-IFRS 분개", "자산 분류와 평가 모델별 분개 규칙을 표준 GL에 매핑합니다."],
-  ["C.03", "Fair Value Engine", "다중 시세 소스 중간값을 사용한 평가, 회기 마감 자동화."],
-  ["C.04", "On-chain Reconciliation", "Hash 단위 매칭과 차이 발생 시 자동 워크플로 트리거."],
-  ["C.05", "Treasury Integration", "SAP Treasury · Cash Mgmt와 동일 마스터로 연계."],
-  ["C.06", "Audit Trail", "모든 평가·분개 이벤트의 불변 로그를 보존합니다."],
+  ["C.01", "멀티체인 데이터 통합 설계", "주요 체인의 트랜잭션 데이터가 SAP 표준 GL에 적재되도록 인터페이스·정규화 로직을 설계·구축합니다."],
+  ["C.02", "K-IFRS·미국 GAAP 분개 자문", "감사인 Concurrence 통과 가능한 자산 분류·평가 모델별 분개 규칙을 SAP 표준 GL에 매핑합니다."],
+  ["C.03", "공정가치 평가 모듈 구축", "다중 시세 소스 중간값 기반 평가 로직과 회기 마감 자동화를 SAP 위에 구현합니다."],
+  ["C.04", "온체인 정합성 검증 설계", "Hash 단위 매칭과 차이 발생 시 자동 워크플로 트리거 체계를 구축합니다."],
+  ["C.05", "SAP Treasury·Cash Mgmt 통합", "디지털자산을 SAP Treasury·Cash Management 동일 마스터로 연계 설계합니다."],
+  ["C.06", "감사 추적 로그 설계", "모든 평가·분개 이벤트의 불변 로그 보존 체계를 외감 통과 가능 수준으로 설계합니다."],
 ];
 const SCENARIOS = [
-  ["SCN.01", "스테이블코인 결제 통합", "글로벌 자회사 간 USDC 결제를 SAP 표준 결제 흐름에 통합. 환산 손익 자동 분개.", [["Industry", "FinTech"], ["Volume", "€120M / qtr"]]],
-  ["SCN.02", "토큰화 증권 보유", "온체인 발행 증권의 보유·평가·이자 분개를 SAP Treasury와 일관된 흐름으로 처리.", [["Industry", "Banking"], ["Coverage", "5 chains"]]],
-  ["SCN.03", "Loyalty NFT 회계", "발행·소각·교환 이벤트를 수익 인식 기준에 맞춰 자동 분개합니다.", [["Industry", "Retail"], ["Audit", "PASS · FY25"]]],
+  ["SCN.01", "스테이블코인 결제 통합", "글로벌 자회사 간 USDC 결제를 SAP 표준 결제 흐름에 통합. 환산 손익 자동 분개.", [["Type", "Hypothetical Reference Case"], ["Source", "내부 시나리오 v1.1"]]],
+  ["SCN.02", "토큰화 증권 보유", "온체인 발행 증권의 보유·평가·이자 분개를 SAP Treasury와 일관된 흐름으로 처리.", [["Type", "Hypothetical Reference Case"], ["Scope", "복수 체인 자산 평가"]]],
+  ["SCN.03", "Loyalty NFT 회계", "발행·소각·교환 이벤트를 수익 인식 기준에 맞춰 자동 분개합니다.", [["Type", "Hypothetical Reference Case"], ["Scope", "수익 인식 분개 규칙"]]],
 ];
 const STEPS = [
   ["P.01", "Discovery", "대상 자산·체인·관할권 인벤토리 작성, gap 분석."],
@@ -31,17 +31,18 @@ const STEPS = [
         <div class="das-hero-tag">Solution · Code DAS</div>
       </div>
       <h1 class="h-display das-hero-title">
-        Digital Asset &amp;<br />Financial Service Hub.
+        Digital Asset<br />Solution Hub.
       </h1>
       <p class="lead das-hero-lead">
-        SAP S/4HANA 위에서 디지털자산 — 스테이블코인, 토큰화 증권, NFT — 의 평가·분개·보고를
-        표준 GL 흐름과 일관된 거버넌스로 통합합니다.
+        도상유한책임회사가 제공하는 디지털자산 솔루션 컨설팅 패키지입니다. 스테이블코인 In&amp;Out 결제를 출발점으로,
+        SAP S/4HANA 표준 위에서 디지털자산 회계·세무·구현을 End-to-End로 설계·구축·자문합니다.
+        자체 SaaS 제품이 아닌 방법론·레퍼런스 아키텍처·구현 인력의 통합 패키지입니다.
       </p>
     </div>
     <div class="das-meta">
-      <div class="das-meta-item"><div class="k">Status</div><div class="v">GA · v.2026.01</div></div>
+      <div class="das-meta-item"><div class="k">Engagement</div><div class="v">SAP Consulting Package</div></div>
       <div class="das-meta-item"><div class="k">Platform</div><div class="v">SAP S/4HANA 2023+</div></div>
-      <div class="das-meta-item"><div class="k">Deployment</div><div class="v">Private / RISE</div></div>
+      <div class="das-meta-item"><div class="k">Deployment</div><div class="v">고객사 SAP 환경 직접 구축</div></div>
       <div class="das-meta-item"><div class="k">Time-to-value</div><div class="v">8 — 14 weeks</div></div>
     </div>
   </div>
@@ -96,7 +97,7 @@ const STEPS = [
       <div><div class="eyebrow">03 / Architecture</div></div>
       <div>
         <h2 class="h-2 das-title">표준 위의 얇은 레이어.</h2>
-        <p class="lead measure">DAS는 SAP S/4HANA 위에 추가되는 얇은 도메인 레이어로 구성됩니다. 코어 모듈을 개조하지 않습니다.</p>
+        <p class="lead measure">DAS Hub 컨설팅은 SAP S/4HANA 표준 위에 얇은 커스텀 레이어를 설계·구축합니다. 코어 모듈은 개조하지 않습니다.</p>
       </div>
     </div>
     <figure class="arch-figure">
@@ -119,7 +120,7 @@ const STEPS = [
         </g>
         <g>
           <rect x="180" y="120" width="780" height="80" fill="#0f2440" stroke="#0f2440" />
-          <text x="570" y="148" text-anchor="middle" font-size="14" fill="#fff" font-weight="600">DAS Domain Engine</text>
+          <text x="570" y="148" text-anchor="middle" font-size="14" fill="#fff" font-weight="600">Digital Asset Sub-ledger (Custom)</text>
           <text x="570" y="172" text-anchor="middle" font-family="ui-monospace, SF Mono, Menlo, monospace" font-size="11" fill="rgba(255,255,255,0.7)">
             Classification · Fair Value · Posting Rules · Reconciliation
           </text>
@@ -204,7 +205,7 @@ const STEPS = [
     <div class="cta-grid">
       <div>
         <div class="eyebrow das-cta-eyebrow">Next</div>
-        <h2 class="h-1 das-cta-title">DAS가 귀사 환경에 적합한지<br />30분 이내에 확인합니다.</h2>
+        <h2 class="h-1 das-cta-title">DAS Hub 컨설팅 패키지가 귀사 환경에<br />적합한지 30분 이내에 확인합니다.</h2>
         <p class="das-cta-lead">파트너가 직접 진행하는 무상 진단 세션. NDA 기반.</p>
       </div>
       <div>
