@@ -2,10 +2,9 @@
 import { getCollection } from 'astro:content';
 
 const all = await getCollection('insights');
-const featured = all.filter(p => p.data.featured).slice(0, 3);
-const previews = featured.length === 3
-  ? featured
-  : all.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 3);
+const previews = all
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
 
 const CAT_COLOR = {
   'Global Tax': 'var(--color-accent)',
