@@ -1,0 +1,19 @@
+{
+  "name": "dosang-homepage",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "도상유한책임회사 홈페이지 (Astro 기반)",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2",
+    "astro": "^4.16.0"
+  }
+}
