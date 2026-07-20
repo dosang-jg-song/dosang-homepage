@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Services from "../components/Services.astro";
+import Solutions from "../components/Solutions.astro";
+import Expertise from "../components/Expertise.astro";
+import Insights from "../components/Insights.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+---
+<BaseLayout
+  title="Dosang LLC — SAP Stability, Powered by AI and FinTech"
+  description="도상유한책임회사 — 글로벌 SAP S/4HANA 컨설팅 및 자체 솔루션 사업"
+>
+  <Header />
+  <main id="main">
+    <Hero />
+    <hr class="rule" />
+    <About />
+    <Services />
+    <Solutions />
+    <Expertise />
+    <Insights />
+    <Contact />
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Reveal-on-scroll for all .reveal elements
+  const els = document.querySelectorAll<HTMLElement>(".reveal");
+  if (els.length && "IntersectionObserver" in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-visible");
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -60px 0px" });
+    els.forEach(el => obs.observe(el));
+  } else {
+    els.forEach(el => el.classList.add("is-visible"));
+  }
+</script>

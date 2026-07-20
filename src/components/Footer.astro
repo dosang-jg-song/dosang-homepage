@@ -1,0 +1,142 @@
+---
+const COLS = [
+  {
+    head: "Services",
+    links: [
+      ["S/4HANA Conversion", "/#services"],
+      ["SAP ERP Implementation", "/#services"],
+      ["Global Tax Compliance", "/#services"],
+      ["AX — AI Development", "/#services"],
+    ],
+  },
+  {
+    head: "Solutions",
+    links: [
+      ["DAS — Digital Asset Hub", "/solutions/das"],
+      ["RDS — Real Data Simulator", "/solutions/rds"],
+      ["DBS — Business Suite", "/solutions/dbs"],
+    ],
+  },
+  {
+    head: "Insights",
+    links: [
+      ["All Articles", "/insights"],
+      ["Global Tax", "/insights"],
+      ["S/4HANA Conversion", "/insights"],
+      ["Tax Compliance", "/insights"],
+    ],
+  },
+  {
+    head: "Company",
+    links: [
+      ["About", "/#about"],
+      ["Expertise", "/#expertise"],
+      ["Careers", "/#contact"],
+      ["Contact", "/#contact"],
+    ],
+  },
+];
+---
+<footer id="site-footer">
+  <div class="container">
+    <div class="footer-top footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand-logo">
+          <img src="/dosang-logo.svg" alt="" aria-hidden="true" />
+          <span>DOSANG</span>
+        </div>
+        <p class="footer-tagline">SAP Stability,<br />Powered by AI and FinTech.</p>
+      </div>
+      {COLS.map(c => (
+        <div class="footer-col">
+          <h4 class="footer-col-head">{c.head}</h4>
+          <ul>
+            {c.links.map(([label, href]) => (
+              <li><a href={href}>{label}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="footer-legal">
+      <div class="footer-legal-info">
+        <div class="footer-company-name">DOSANG &nbsp;|&nbsp; 도상유한책임회사</div>
+        <div>대표: 송재곤 &nbsp;|&nbsp; 사업자등록번호: 253-87-03688 &nbsp;|&nbsp; 법인등록번호: 180115-0000224</div>
+        <div>부산광역시 남구 용호로42번길 104-11, 사무동 1층</div>
+        <div>이메일: <a href="mailto:jg.song@dosang.kr">jg.song@dosang.kr</a></div>
+        <div class="footer-copy">© 2026 Dosang LLC. All rights reserved.</div>
+      </div>
+      <div class="footer-legal-links">
+        <a href="/legal/privacy">Privacy Policy</a>
+        <a href="/legal/terms">Terms of Use</a>
+        <a href="/legal/security">Information Security</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  #site-footer {
+    background: #0c1926; color: #c9d0db;
+    padding-top: 96px; padding-bottom: 48px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 1.5fr repeat(4, 1fr);
+    gap: 48px; padding-bottom: 64px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-brand-logo {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+  }
+  .footer-brand-logo img {
+    width: 32px; height: 32px;
+    filter: invert(1) brightness(2);
+  }
+  .footer-brand-logo span {
+    font-family: var(--font-sans-en); font-weight: 600; font-size: 17px;
+    color: #fff; letter-spacing: 0.02em;
+  }
+  .footer-tagline {
+    font-size: 13px; color: #8a919c; margin: 0;
+    line-height: 1.7; max-width: 280px;
+  }
+  .footer-col-head {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
+    color: #8a919c; text-transform: uppercase;
+    margin: 0 0 20px; font-weight: 500;
+  }
+  .footer-col ul {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .footer-col a {
+    color: #c9d0db; font-size: 14px; text-decoration: none;
+    transition: color 300ms var(--ease);
+  }
+  .footer-col a:hover { color: #fff; }
+  .footer-legal {
+    padding-top: 40px;
+    display: grid; grid-template-columns: 2fr 1fr; gap: 32px;
+  }
+  .footer-legal-info {
+    font-size: 12px; color: #8a919c; line-height: 1.8;
+  }
+  .footer-company-name {
+    color: #e2e6ec; font-weight: 500; margin-bottom: 4px;
+  }
+  .footer-legal-info a { color: #c9d0db; }
+  .footer-copy { margin-top: 8px; }
+  .footer-legal-links {
+    font-size: 12px; display: flex; flex-direction: column; gap: 8px; align-items: flex-end;
+  }
+  .footer-legal-links a { color: #8a919c; text-decoration: none; }
+  @media (max-width: 1023px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 767px) {
+    .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+    .footer-legal { grid-template-columns: 1fr; gap: 24px; }
+    .footer-legal-links { align-items: flex-start; }
+  }
+</style>
