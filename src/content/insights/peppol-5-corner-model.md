@@ -9,7 +9,7 @@ featured: false
 readMin: 10
 ---
 
-EU-VIDA(VAT in the Digital Age) 패키지가 2030년 발효를 앞두고, Peppol은 사실상의 표준 인프라로 자리잡고 있습니다. 본 해설은 4-corner와 5-corner의 차이, 그리고 SAP DRC 운영 시 핵심 고려사항을 정리합니다.
+EU-VIDA(VAT in the Digital Age) 패키지가 2030년 발효를 앞두고, Peppol은 사실상의 표준 인프라로 자리잡고 있습니다. 그런데 같은 Peppol이라도 4-corner와 5-corner는 구조가 다르고, SAP DRC 운영에서 고려할 지점도 달라집니다.
 
 ## 1. 4-Corner vs 5-Corner
 
@@ -32,4 +32,4 @@ EU-VIDA(VAT in the Digital Age) 패키지가 2030년 발효를 앞두고, Peppol
 
 ## 4. 결론
 
-5-Corner 채택 국가는 빠르게 늘고 있습니다. 다국가 SAP 운영 기업은 AP 전략을 단일화하지 말고, 국가별 거래량·정부 게이트웨이 의무 여부에 따라 단계적 결정을 권고합니다.
+5-Corner 채택 국가는 빠르게 늘고 있습니다. 다국가 SAP 운영 기업이라면 AP 전략을 성급히 단일화하기보다, 국가별 거래량과 정부 게이트웨이 의무 여부를 보아 가며 단계적으로 결정하는 편이 안전합니다.

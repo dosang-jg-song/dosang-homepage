@@ -9,7 +9,7 @@ featured: true
 readMin: 10
 ---
 
-AI 기반 ABAP 자동 생성은 도상의 자체 개발방법론(AX)의 핵심입니다. 본 글은 정확도 검증 메커니즘과 도상 자체 QA 파이프라인을 정리합니다.
+AI 기반 ABAP 자동 생성은 도상의 자체 개발방법론(AX)의 핵심입니다. 그러나 생성 속도보다 먼저 따져야 할 것은 생성된 코드가 얼마나 정확한가입니다. 도상은 이 질문에 4단계 워크플로와 자체 QA 파이프라인으로 답합니다.
 
 ## 1. AX 워크플로 — 4단계
 
@@ -55,10 +55,10 @@ AI 기반 ABAP 자동 생성은 도상의 자체 개발방법론(AX)의 핵심�
 
 도상은 다음 4개 게이트를 운영합니다:
 
-1. **Static Analysis Gate** — ATC Strict Check + Code Inspector
-2. **Unit Test Gate** — 자동 생성된 단위 테스트의 80%+ 통과
-3. **Semantic Diff Gate** — FD ↔ 생성 코드의 의미적 일치도 측정
-4. **Human Review Gate** — Senior ABAP 컨설턴트 최종 승인
+1. **Static Analysis Gate**: ATC Strict Check + Code Inspector
+2. **Unit Test Gate**: 자동 생성된 단위 테스트의 80%+ 통과
+3. **Semantic Diff Gate**: FD ↔ 생성 코드의 의미적 일치도 측정
+4. **Human Review Gate**: Senior ABAP 컨설턴트 최종 승인
 
 ## 4. 한계 — 무엇을 자동화하지 않는가
 
@@ -69,4 +69,4 @@ AI 기반 ABAP 자동 생성은 도상의 자체 개발방법론(AX)의 핵심�
 
 ## 5. 결론
 
-AI는 ABAP 작성 시간을 50~70% 단축하지만, 마지막 5%의 정확성은 여전히 인간의 영역입니다. 도상 컨설팅팀은 AX 가속화 패키지를 운영합니다.
+AI는 ABAP 작성 시간을 50~70% 단축합니다. 다만 마지막 5%의 정확성은 자동화 대상이 아니라 Senior ABAP 컨설턴트가 책임지는 검증 단계이며, 도상의 QA 파이프라인은 이 전제 위에 설계되어 있습니다. 도상 컨설팅팀은 AX 가속화 패키지를 운영합니다.

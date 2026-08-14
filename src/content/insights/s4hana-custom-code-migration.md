@@ -9,7 +9,7 @@ featured: true
 readMin: 12
 ---
 
-S/4HANA Conversion(Brownfield)에서 가장 큰 리스크는 커스텀 코드입니다. 본 글은 도상 컨설팅팀의 Fortune 500 OEM Conversion 경험을 토대로 Custom Code Migration의 5단계 절차를 정리합니다.
+S/4HANA Conversion(Brownfield)에서 가장 큰 리스크는 커스텀 코드입니다. 도상 컨설팅팀은 Fortune 500 OEM Conversion 경험을 토대로 이 리스크를 5단계 절차로 관리합니다.
 
 ## 1. 절차 — 5 Steps
 
@@ -30,7 +30,7 @@ S/4HANA Conversion(Brownfield)에서 가장 큰 리스크는 커스텀 코드입
 
 ## 3. ATC Strict Mode 활용
 
-ABAP Test Cockpit의 S/4HANA Strict Check 변형은 deprecated API·필드 길이 변경·HANA 호환성 이슈를 자동 검출합니다. ATC를 CI 파이프라인에 통합하면 회귀 차단이 가능합니다.
+ABAP Test Cockpit의 S/4HANA Strict Check 변형은 deprecated API·필드 길이 변경·HANA 호환성 이슈를 자동 검출합니다. ATC를 CI 파이프라인에 통합해 두면 회귀가 반입되기 전에 걸러집니다.
 
 ## 4. 함정 — 자주 발생하는 실수
 

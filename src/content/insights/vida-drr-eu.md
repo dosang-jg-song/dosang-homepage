@@ -9,9 +9,9 @@ featured: true
 readMin: 11
 ---
 
-EU Council ECOFIN(EU 재무장관회의)은 2024년 11월 5일 **VAT in the Digital Age** (이하 ViDA) 패키지에 정치적 합의를 이루었고, 2025년 EU Council Directive로 정식 채택되었습니다. 본 분석은 ViDA의 3개 축 중 **Digital Reporting Requirements (DRR)**에 초점을 맞춰, 한국 다국적 기업의 EU 자회사가 직면할 실무 영향과 SAP DRC 기반 대응 옵션을 정리합니다.
+EU Council ECOFIN(EU 재무장관회의)은 2024년 11월 5일 **VAT in the Digital Age** (이하 ViDA) 패키지에 정치적 합의를 이루었고, 2025년 EU Council Directive로 정식 채택되었습니다. 세 축 가운데 한국 다국적 기업의 EU 자회사에 직접 영향을 미치는 것은 **Digital Reporting Requirements (DRR)**입니다. 2030년 7월부터 국경 간 B2B 거래에 eInvoice 발행과 실시간 보고가 의무화되고 VIES 같은 정기 신고는 단계적으로 사라지므로, SAP 환경에서 무엇을 언제 바꿔야 하는지가 곧바로 실무 과제가 됩니다.
 
-본 글은 도상 컨설팅팀이 진행한 다수의 EU 자회사 SAP DRC PoC 경험을 토대로 작성되었으며, 모든 일정·시점은 EU Council 공식 발표 기준입니다. 각 회원국 자체 시스템 변경은 별도 검토가 필요합니다.
+이 분석은 도상 컨설팅팀이 진행한 다수의 EU 자회사 SAP DRC PoC 경험을 토대로 하며, 모든 일정·시점은 EU Council 공식 발표 기준입니다. 각 회원국 자체 시스템 변경은 별도 검토가 필요합니다.
 
 ## 1. ViDA 패키지 개요
 
@@ -23,7 +23,7 @@ ViDA는 EU VAT 시스템의 디지털 시대 적응을 목적으로 한 종합 �
 | **Platform Economy** | Platform Economy VAT | 단기 숙박·승차 공유 플랫폼의 deemed supplier 책임 |
 | **SVR** | Single VAT Registration | 다국가 운영 기업의 단일 VAT 등록 확대 |
 
-본 글은 **DRR 축에 한정**합니다. Platform Economy와 SVR은 별도 분석에서 다룹니다.
+이 글에서는 **DRR 축만** 다룹니다. Platform Economy와 SVR은 별도 분석에서 살핍니다.
 
 ## 2. DRR — 핵심 시행 일정
 
@@ -58,7 +58,7 @@ SAP S/4HANA 운영 기업은 다음 4개 영역에서 변경이 불가피합니�
 
 ### 4.1 SAP DRC (Document and Reporting Compliance) 활성화
 
-DRC가 EU 회원국별 시나리오를 표준 제공하므로, 우선 활성화가 가장 안정적인 경로입니다. 다만 다음 보강이 필요합니다:
+DRC가 EU 회원국별 시나리오를 표준 제공하므로, 우선 활성화가 가장 안정적인 경로입니다. 다만 다음 세 가지는 별도로 보강해야 합니다:
 
 1. **EN 16931 출력 포맷 매핑** — 자국 syntax 추가 (예: UBL, CII)
 2. **Peppol AP 연결** — 회원국 정부 게이트웨이 또는 Peppol BIS 3.0
@@ -66,7 +66,7 @@ DRC가 EU 회원국별 시나리오를 표준 제공하므로, 우선 활성화�
 
 ### 4.2 마스터 데이터 정비
 
-거래처 VAT ID 검증 정확도가 핵심입니다. EN 16931은 BT-31 Seller VAT identifier에 ISO 3166 + 회원국 형식을 강제합니다.
+거래처 VAT ID 검증 정확도가 관건입니다. EN 16931은 BT-31 Seller VAT identifier에 ISO 3166 + 회원국 형식을 강제합니다.
 
 ### 4.3 데이터 거버넌스
 
@@ -85,7 +85,7 @@ DRC가 EU 회원국별 시나리오를 표준 제공하므로, 우선 활성화�
 
 ### 5.1 영향 받는 거래
 
-한국 본사를 둔 다음 EU 자회사 거래가 영향 받습니다:
+한국에 본사를 둔 그룹이라면 다음 EU 자회사 거래가 영향을 받습니다:
 
 | 거래 유형 | DRR 적용 | 비고 |
 |---|---|---|
@@ -103,7 +103,7 @@ DRC가 EU 회원국별 시나리오를 표준 제공하므로, 우선 활성화�
 
 ### 5.3 회원국 선행 사례 활용
 
-ViDA 본격 시행(2030) 이전에 다음 회원국이 자체 eInvoice 시스템을 우선 시행하므로, 도입 경험을 ViDA 대비에 활용 가능합니다:
+ViDA 본격 시행(2030) 이전에 다음 회원국이 자체 eInvoice 시스템을 우선 시행합니다. 여기서 쌓는 도입 경험이 그대로 ViDA 대비 자산이 됩니다:
 
 - **Slovakia** (2026.01~) — IS EFA, Peppol 5-corner
 - **France** (2026.09~ B2B 의무화 일정 조정 진행 중) — PPF/PDP 모델
@@ -122,7 +122,7 @@ ViDA 본격 시행(2030) 이전에 다음 회원국이 자체 eInvoice 시스템
 
 ## 7. 결론
 
-ViDA DRR은 단순한 신고 양식 변경이 아니라 **EU VAT 운영 패러다임의 근본적 전환**입니다. 정기 신고 → 실시간 보고로의 이행은 SAP 환경에서 데이터·통제·인력 거버넌스의 동시 재설계를 요구합니다.
+ViDA DRR은 신고 양식 하나를 바꾸는 규정이 아닙니다. 정기 신고에서 실시간 보고로 옮겨가는 **EU VAT 운영 방식 자체의 전환**이며, SAP 환경에서는 데이터·통제·인력 거버넌스를 함께 재설계해야 합니다.
 
 한국 다국적 기업의 EU 자회사는 2030년 시행을 기다리지 말고 **2026년부터 회원국 선행 사례 대응을 통해 DRR 대비 역량을 사전 확보**해야 합니다. 도상 컨설팅팀은 SAP DRC 기반 4~12주 회원국별 PoC 패키지를 운영합니다.
 

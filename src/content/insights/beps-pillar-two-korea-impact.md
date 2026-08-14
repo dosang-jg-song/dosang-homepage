@@ -9,7 +9,7 @@ featured: false
 readMin: 10
 ---
 
-OECD BEPS Pillar Two는 다국적 기업의 글로벌 최저한세 15%를 강제하는 국제 합의입니다. 한국은 2024년 시행, 2025년 첫 신고를 마쳤고, 2026년부터 본격 운영 단계입니다.
+OECD BEPS Pillar Two는 다국적 기업에 글로벌 최저한세 15%를 강제하는 국제 합의입니다. 한국은 2024년 시행, 2025년 첫 신고를 마쳤고, 2026년부터는 본격 운영 단계에 들어섭니다. 이제 쟁점은 제도 이해가 아니라, 신고에 필요한 데이터를 SAP 환경에서 어떻게 뽑아낼 것인가입니다.
 
 ## 1. 핵심 메커니즘
 
@@ -28,7 +28,7 @@ OECD BEPS Pillar Two는 다국적 기업의 글로벌 최저한세 15%를 강제
 
 ## 3. SAP Group Reporting 활용
 
-기존 SAP BPC/BFC를 운영 중인 기업은 SAP Group Reporting의 Pillar Two 컴플라이언스 시나리오를 활성화 가능합니다. 다만 다음 보강이 필요합니다:
+기존 SAP BPC/BFC를 운영 중인 기업은 SAP Group Reporting의 Pillar Two 컴플라이언스 시나리오를 그대로 활성화하면 됩니다. 다만 다음 세 가지는 별도 보강이 필요합니다.
 
 1. 회사 코드별 ETR 계산 로직
 2. CbC Report ↔ GloBE 매핑
